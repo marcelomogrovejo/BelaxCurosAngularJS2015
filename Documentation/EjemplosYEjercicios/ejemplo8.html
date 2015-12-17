@@ -1,0 +1,73 @@
+<!doctype html>
+<html ng-app="myApp">
+  <head>
+    <meta charset="utf-8">
+    <title>AngularJS course</title>
+
+    <!-- AngularJS -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.2/angular.min.js"></script>
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <!-- Bootstrap Javascript -->
+    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        var app = angular.module('myApp',[]);
+
+        app.controller('ParentCtrl',
+          function ParentCtrl ($scope) {
+            $scope.broadcast = function() {
+                $scope.$broadcast('parent', 'My data from the broadcast')
+            }
+
+            $scope.$on('child', function (event, data) {
+                $scope.childData = data; // My emitt message
+            });
+        });
+
+        app.controller('ChildCtrl',
+          function ChildCtrl ($scope) {
+            $scope.$on('parent', function (event, data) {
+                $scope.parentData = data; // My broadcast message
+            });
+
+            $scope.emit = function() {
+                $scope.$emit('child', 'My data from the emit 1')
+            }
+        });
+
+        app.controller('ChildCtrl2',
+          function ChildCtrl2 ($scope) {
+            $scope.$on('parent', function (event, data) {
+                $scope.parentData = data; // My broadcast message
+            });
+
+            $scope.emit = function() {
+                $scope.$emit('child', 'My data from the emit 2')
+            }
+        });
+    </script>
+  </head>
+  <body>
+    <div ng-app="myApp">
+      <div ng-controller="ParentCtrl" style="border: 1px solid #000;">
+          Parent controller<br />
+          Data from the child: {{ childData }}<br />
+          <button ng-click="broadcast()">Start broadcasting</button>
+
+          <div ng-controller="ChildCtrl" style="border: 1px solid #000">
+              Child controller<br />
+              Data from the parent: {{ parentData }}<br />
+              <button ng-click="emit()">Start emitting</button>
+          </div>
+
+          <div ng-controller="ChildCtrl2" style="border: 1px solid #000">
+              Child controller 2<br />
+              Data from the parent: {{ parentData }}<br />
+              <button ng-click="emit()">Start emitting</button>
+          </div>
+    </div>
+</div>
+  </body>
+</html>

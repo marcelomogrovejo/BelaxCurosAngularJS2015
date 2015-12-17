@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>AngularJS course</title>
+
+		<!-- AngularJS -->
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.2/angular.min.js"></script>
+		<!-- JQuery -->
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+		<!-- Bootstrap Javascript -->
+		<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	</head>
+	<body ng-app>
+		<div class="container">
+			<hr>
+			<form id="contact" class="form-horizontal" role="form" >
+				<div class="form-group">
+					<label for="name" class="col-sm-2 control-label">Enter your name:</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="name"
+							   placeholder="Type your name here..." ng-model="yourName">
+					</div>
+				</div>
+			</form>
+			<hr>
+
+			<h1>What's up {{ yourName }}?</h1>
+		</div>
+	</body>
+</html>

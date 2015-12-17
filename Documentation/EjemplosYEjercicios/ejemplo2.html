@@ -1,0 +1,19 @@
+<script type="text/javascript">
+	$(document).ready(function () {
+		var searchValue = "";
+		setInterval(checkTextboxChanged, 0.5);
+
+		function checkTextboxChanged() {
+			var currentValue = $("#name").val();
+
+			if (currentValue != searchValue) {
+				searchValue = currentValue;
+				textboxChanged(currentValue);
+			}
+		}
+
+		function textboxChanged(text) {
+			$("#showIt").text(text);
+		}
+	});
+</script>
