@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Color Change</title>
+  <script src="angularjs/1.4.8/angular.min.js"></script>
+  <script src="ColorPickerController.js"></script>
+</head>
+<body>
+  <div ng-app="myApp" ng-controller="ColorPickerController">
+    <h1>Colors</h1>
+    <label>
+      Foreground
+      <color-picker ng-model="foreground"></color-picker>
+    </label>
+    <label>
+      Background
+      <color-picker ng-model="background"></color-picker>
+    </label>
+
+    <div style="background: #{{ background }}, color: #{{ foreground }};">
+      Results
+    </div>
+  </div>
+</body>
+</html>

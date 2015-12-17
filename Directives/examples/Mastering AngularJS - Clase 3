@@ -1,0 +1,62 @@
+Repaso
+$compile:
+  - parsea la vista en busca de directivas, cuando la encuentra la busca y ejecuta.
+  - puedo modificar el DOM aquí.
+  - recibe 'element' y 'atributos'
+
+transclusion:
+  - sirve para hacer tabs. research!
+
+attr:
+  - atributos del nodo donde se aplicó la directiva.
+  - si le pase un objeto, pasa como string.
+
+$observe:
+  - reacciona ante un atributo.
+
+Funcion controller:
+  - se compila al final de todo
+  - comunca dos directivas
+  - propiedad require: le paso el controladore de la otra directiva
+
+ngModelControler:
+  - controlador de ng-model
+  - encargado de mantener el modelo actualizado
+
+Nota: las mejores directivas no usan el scope
+
+Ejemplo: directiva 'time-duration'
+
+$formatters:
+  - array de funciones (pipeline)
+  - pusheo funciones
+  - la ultima funcion va a devolver el valor deseado
+  - recibe modelValue y devuelve viewValue
+
+$render:
+  - hace que pueda ver en la vista valores generados por la directiva
+  - deja los valores disponibles en el scope
+
+Nota: tengo que mantener bidireccionalidad entre el modelo y la vista.
+
+$parser:
+  - parseo los datos de la directiva a modelo
+  - pipeline
+  - recibe viewValue y devuelve modelValue
+
+$setViewValue:
+  - actualiza el valor del modelo de acuerdo al cambio producido en la vista
+
+Nota: con $watch veo si cambió algun valor de la vista y reacciono ante ello
+
+Problemas:
+  - watch: como no tiene scope definido, se asigna al scope del padre. si duplico
+  la directiva puedo modificar la otra directiva y biceversa.
+  - scope en comun
+
+Solucion:
+  - no usar scope
+  - utilizar 'element' ya que apunta al elemento html, en esta caso al div del template,
+  es decir, tiene el input value y el select value
+
+Ejercicio: Colores
