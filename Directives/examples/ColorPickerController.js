@@ -37,9 +37,9 @@ app.directive('colorPicker', function() {
       //Formats hex to rgb
       ngModelCtrl.$formatters.push(function(modelValue) {
         return {
-          r: parseInt(modelValue.substring(0,2),16),
-          g: parseInt(modelValue.substring(2,4),16),
-          b: parseInt(modelValue.substring(4,6),16)
+          r: modelValue.substring(0,2),
+          g: modelValue.substring(2,4),
+          b: modelValue.substring(4,6)
         };
       });
 
@@ -68,30 +68,18 @@ app.directive('colorPicker', function() {
 //       angular.element(bkgInB).bind("change", updateViewValue);
 
        function updateViewValue() {
-         console.log('color: #' + rgb2HexColor(inputR.value, inputG.value, inputB.value));
-//         console.log('background: ' + rgb2HexColor(bkgInR.value, bkgInG.value, bkgInB.value));
          ngModelCtrl.$setViewValue({
-           foreground: rgb2HexColor(inputR.value, inputG.value, inputB.value),
-//           background: rgb2HexColor(inputR.value, inputG.value, inputB.value)
-//            foreground: '0f445e',
-            background: '727272'
+           si cambian los input, tengo que actualizar la representacion interna que tengo de ellos
+           $viewValue.r = inputR;
+           "
+           "
          });
        }
 
-       // Convert rgb to hex color
-       function rgb2HexColor(r, g, b) {
-         console.log('rgb2HexColor: r->' + r + ', g->' + g + ', b->' + b);
-         return byte2Hex(r) + byte2Hex(g) + byte2Hex(b);
-       }
-       function byte2Hex(n) {
-         var hexString = "0123456789ABCDEF";
-         return String(hexString.substr((n >> 4) & 0x0F,1)) + hexString.substr(n & 0x0F,1);
-       }
 
        //Parses
        ngModelCtrl.$parsers.push(function(viewValue) {
-         scope.foreground = viewValue.foreground;
-         scope.background = viewValue.background;
+         return concatenacion viewVAlue.r + viewVAlue.g + viewVAlue.
        });
     }
   };
