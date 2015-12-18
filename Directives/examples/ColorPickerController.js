@@ -2,7 +2,7 @@ var app = angular.module('myApp', []);
 
 app.controller('ColorPickerController', function($scope) {
   $scope.foreground = 'f6f6f6';
-  $scope.background = '5177ef';
+  $scope.background = '5177ee';
 });
 
 app.directive('colorPicker', function() {
@@ -22,14 +22,13 @@ app.directive('colorPicker', function() {
     replace: true,
     link: function(scope, element, attrs, ngModelCtrl) {
       //Gets input elements
-      console.log(element);
-      var frgInR = element[0].children[1];
-      var frgInG = element[0].children[3];
-      var frgInB = element[0].children[5];
+      var inputR = element[0].children[1];
+      var inputG = element[0].children[3];
+      var inputB = element[0].children[5];
 
-      var bkgInR = element[0].children[1];
-      var bkgInG = element[0].children[3];
-      var bkgInB = element[0].children[5];
+//      var bkgInR = element[0].children[1];
+//      var bkgInG = element[0].children[3];
+//      var bkgInB = element[0].children[5];
 
       /**
        * STEP 1: Gets values from model and updates the view values.
@@ -37,26 +36,22 @@ app.directive('colorPicker', function() {
        */
       //Formats hex to rgb
       ngModelCtrl.$formatters.push(function(modelValue) {
-        var red = parseInt(modelValue.substring(0,2),16);
-        var green = parseInt(modelValue.substring(2,4),16);
-        var blue = parseInt(modelValue.substring(4,6),16);
-
         return {
-          r: red,
-          g: green,
-          b: blue
+          r: parseInt(modelValue.substring(0,2),16),
+          g: parseInt(modelValue.substring(2,4),16),
+          b: parseInt(modelValue.substring(4,6),16)
         };
       });
 
       //Renders dom elements with values from formatter
       ngModelCtrl.$render = function() {
-        frgInR.value = ngModelCtrl.$viewValue.r;
-        frgInG.value = ngModelCtrl.$viewValue.g;
-        frgInB.value = ngModelCtrl.$viewValue.b;
+        inputR.value = ngModelCtrl.$viewValue.r;
+        inputG.value = ngModelCtrl.$viewValue.g;
+        inputB.value = ngModelCtrl.$viewValue.b;
 
-        bkgInR.value = ngModelCtrl.$viewValue.r;
-        bkgInG.value = ngModelCtrl.$viewValue.g;
-        bkgInB.value = ngModelCtrl.$viewValue.b;
+//        bkgInR.value = ngModelCtrl.$viewValue.r;
+//        bkgInG.value = ngModelCtrl.$viewValue.g;
+//        bkgInB.value = ngModelCtrl.$viewValue.b;
       };
 
       /**
@@ -64,52 +59,40 @@ app.directive('colorPicker', function() {
        *         Reading $viewValue and returning $modelValue
        */
        //On input events
-//       angular.element(frgInR).bind("keypress", updateViewValue);
-//       angular.element(frgInG).bind("keypress", updateViewValue);
-//       angular.element(frgInB).bind("keypress", updateViewValue);
-       angular.element(frgInR).bind("change", updateViewValue);
-       angular.element(frgInG).bind("change", updateViewValue);
-       angular.element(frgInB).bind("change", updateViewValue);
+       angular.element(inputR).bind("change", updateViewValue);
+       angular.element(inputG).bind("change", updateViewValue);
+       angular.element(inputB).bind("change", updateViewValue);
 
-//       angular.element(bkgInR).bind("keypress", updateViewValue);
-//       angular.element(bkgInG).bind("keypress", updateViewValue);
-//       angular.element(bkgInB).bind("keypress", updateViewValue);
-       angular.element(bkgInR).bind("change", updateViewValue);
-       angular.element(bkgInG).bind("change", updateViewValue);
-       angular.element(bkgInB).bind("change", updateViewValue);
+//       angular.element(bkgInR).bind("change", updateViewValue);
+//       angular.element(bkgInG).bind("change", updateViewValue);
+//       angular.element(bkgInB).bind("change", updateViewValue);
 
        function updateViewValue() {
-         console.log('foreground: ' + rgbToHex(frgInR.value, frgInG.value, frgInB.value));
-         console.log('background: ' + rgbToHex(bkgInR.value, bkgInG.value, bkgInB.value));
+         console.log('color: #' + rgb2HexColor(inputR.value, inputG.value, inputB.value));
+//         console.log('background: ' + rgb2HexColor(bkgInR.value, bkgInG.value, bkgInB.value));
          ngModelCtrl.$setViewValue({
-//           foreground: rgbToHex(frgInR.value, frgInG.value, frgInB.value),
-//           background: rgbToHex(bkgInR.value, bkgInG.value, bkgInB.value)
-            foreground: 'ffffff',
-            background: '0f445e'
-         })
+           foreground: rgb2HexColor(inputR.value, inputG.value, inputB.value),
+//           background: rgb2HexColor(inputR.value, inputG.value, inputB.value)
+//            foreground: '0f445e',
+            background: '727272'
+         });
        }
 
-       function rgbToHex(r, g, b) {
-         var hex = componentToHex(r) + componentToHex(g) + componentToHex(b);
-         console.log('hex: ' + hex);
-         return hex;
+       // Convert rgb to hex color
+       function rgb2HexColor(r, g, b) {
+         console.log('rgb2HexColor: r->' + r + ', g->' + g + ', b->' + b);
+         return byte2Hex(r) + byte2Hex(g) + byte2Hex(b);
        }
-
-       function componentToHex(c) {
-         var hex = c.toString(16);
-         console.log('component: ' + hex);
-         console.log('return: ' + hex.length == 1? "0" + hex : hex);
-         return hex.length === 1? "0" + hex : hex;
+       function byte2Hex(n) {
+         var hexString = "0123456789ABCDEF";
+         return String(hexString.substr((n >> 4) & 0x0F,1)) + hexString.substr(n & 0x0F,1);
        }
 
        //Parses
-//       console.log(ngModelCtrl.$viewValue);
        ngModelCtrl.$parsers.push(function(viewValue) {
-         var foreground = viewValue.foreground;
-         var background = viewValue.background;
-         return background;
+         scope.foreground = viewValue.foreground;
+         scope.background = viewValue.background;
        });
-
     }
   };
 });
