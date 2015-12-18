@@ -26,10 +26,6 @@ app.directive('colorPicker', function() {
       var inputG = element[0].children[3];
       var inputB = element[0].children[5];
 
-//      var bkgInR = element[0].children[1];
-//      var bkgInG = element[0].children[3];
-//      var bkgInB = element[0].children[5];
-
       /**
        * STEP 1: Gets values from model and updates the view values.
        *         Reading $modelValue and returning $viewValue
@@ -48,10 +44,6 @@ app.directive('colorPicker', function() {
         inputR.value = ngModelCtrl.$viewValue.r;
         inputG.value = ngModelCtrl.$viewValue.g;
         inputB.value = ngModelCtrl.$viewValue.b;
-
-//        bkgInR.value = ngModelCtrl.$viewValue.r;
-//        bkgInG.value = ngModelCtrl.$viewValue.g;
-//        bkgInB.value = ngModelCtrl.$viewValue.b;
       };
 
       /**
@@ -63,23 +55,17 @@ app.directive('colorPicker', function() {
        angular.element(inputG).bind("change", updateViewValue);
        angular.element(inputB).bind("change", updateViewValue);
 
-//       angular.element(bkgInR).bind("change", updateViewValue);
-//       angular.element(bkgInG).bind("change", updateViewValue);
-//       angular.element(bkgInB).bind("change", updateViewValue);
-
        function updateViewValue() {
          ngModelCtrl.$setViewValue({
-           si cambian los input, tengo que actualizar la representacion interna que tengo de ellos
-           $viewValue.r = inputR;
-           "
-           "
+           r: inputR.value,
+           g: inputG.value,
+           b: inputB.value
          });
        }
 
-
        //Parses
        ngModelCtrl.$parsers.push(function(viewValue) {
-         return concatenacion viewVAlue.r + viewVAlue.g + viewVAlue.
+         return viewValue.r + viewValue.g + viewValue.b;
        });
     }
   };
