@@ -1,0 +1,61 @@
+Directivas: custom validations
+
+Formularios:
+  - required: si no completamos el campo, agrega ng-invalid
+  - asi mismo podemos accederlo nombre_form.nombre_input.error
+
+Hacer nuestras propias validaciones:
+  - llena el $error con mi error de acuerdo a mi validacion
+  - FormController tiene que interactuar con el modelo, ngModelController
+  setValidity(string nombre_error, boolean) -> prende la flag de validity
+
+Ejercicio: ng-lenght
+
+Ejercicio: crear la directiva evenNumber para aplicar sobre controles de
+formularios. Solamente tiene que dejar escribir numeros. Cuando el numero sea
+impar, mostrar un mensaje de error.
+
+ngMessages:
+  - muestra u oculta mensajes basados en un objeto clave valor que la direcctiva
+  escucha.
+  - <div ng-messages="myForm.input.$error">
+      <span ng-message="longitud">Err: te pasaste</span>
+      <span ng-message="required">Err: campo requerido</span>
+    </div>
+
+$asyncValidators:
+  - Luego de que todos los validadores sincronicos terminen, se ejecuta este.
+  - si las promesas se resuelven el model es valido
+
+$pending:
+  - mientras espera la llamada asincrona
+  - cuando haya algun campo del formulario esperando una llamada asincrona le
+  prende esta flag para que no submitee
+
+Rutas:
+  - URL, controlador, template y objeto resolve
+  - pone la url (html) en el ng-view
+  - when "zaraza"
+  - $routeProvider (ngRoute)
+  - $routeParams.param para tomar parametro de la url ('/route/:param')
+
+resolve:
+  - podemos injectar las propiedades del objeto en el controlador.
+  - llamo a las funciones que generan promesa, de esta forma no se crea el
+  template hasta que no se resuelvan las promesas.
+  - puedo anidar llamadas
+
+evento $routeChangeStart:
+  - ponemos un loading para que el usuario sepa que se esta cargando algo
+
+evento $routeChangeSuccess:
+
+evento $routeChangeError:
+  - si las promesas se rechazan, dispara este evento y no redirecciona.
+
+Nota:
+  - los eventos se attachan a rootScope
+
+Nota:
+  - app.config: se ejecuta apenas entra a la aplicacion
+  - app.run: se ejecuta luego del config

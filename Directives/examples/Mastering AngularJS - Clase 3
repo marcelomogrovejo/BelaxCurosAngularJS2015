@@ -13,6 +13,7 @@ attr:
 
 $observe:
   - reacciona ante un atributo.
+  - si cambia el nombre del atributo, reacciona, NO se fija en lo que representa.
 
 Funcion controller:
   - se compila al final de todo
